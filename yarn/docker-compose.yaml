@@ -9,7 +9,7 @@ services:
       - 9870:9870
       - 9000:9000
     volumes:
-      - ./hdfs/namenode:/hadoop/dfs/name
+      - ./data/namenode:/hadoop/dfs/name
       - ./jobs:/app
     working_dir: /app
     environment:
@@ -23,9 +23,18 @@ services:
     container_name: datanode1
     restart: always    
     volumes:
-      - ./hdfs/datanode1:/hadoop/dfs/data
+      - ./data/datanode1:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager1:
+    image: bigdatainf/hadoop-nodemanager:3.3.5
+    container_name: nodemanager1
+    restart: always    
+    environment:
+      SERVICE_PRECONDITION: "datanode1:9864"
     env_file:
       - ./hadoop.env
 
@@ -40,13 +49,16 @@ services:
     env_file:
       - ./hadoop.env
 
-  nodemanager1:
-    image: bigdatainf/hadoop-nodemanager:3.3.5
-    container_name: nodemanager
+  historyserver:
+    image: imok2/hadoop-historyserver:hadoop3.2.2-java8
+    #image: bigdatainf/hadoop-historyserver:3.3.5
+    container_name: historyserver
     restart: always
-    ports:
-      - 8042:8042
     environment:
       SERVICE_PRECONDITION: "resourcemanager:8088"
+    volumes:
+      - ./data/historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
+
+  

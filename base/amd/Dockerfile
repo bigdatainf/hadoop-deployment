@@ -1,17 +1,20 @@
-FROM library/ibm-semeru-runtimes:open-11-jdk
+FROM debian:stable-slim
 
 MAINTAINER Carlos Badenes <carlos.badenes@upm.es>
 # based on the previous work of
 MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 MAINTAINER Giannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      openjdk-11-jdk \
       net-tools \
       curl \
       netcat \
       gnupg \
       libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
