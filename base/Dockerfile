@@ -1,4 +1,4 @@
-FROM ibm-semeru-runtimes:open-8-jdk-jammy
+FROM library/ibm-semeru-runtimes:open-11-jdk
 
 MAINTAINER Carlos Badenes <carlos.badenes@upm.es>
 # based on the previous work of
@@ -12,9 +12,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       gnupg \
       libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
-
-
-ENV JAVA_HOME=/opt/java/openjdk
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 

@@ -9,18 +9,43 @@ services:
       - 9870:9870
       - 9000:9000
     volumes:
-      - hadoop_namenode:/hadoop/dfs/name
+      - ./hdfs/namenode:/hadoop/dfs/name
+      - ./jobs:/app
+    working_dir: /app
     environment:
       - CLUSTER_NAME=test
+      - HOME=/app
     env_file:
       - ./hadoop.env
 
-  datanode:
+  datanode1:
     image: bigdatainf/hadoop-datanode:3.3.5
-    container_name: datanode
-    restart: always
+    container_name: datanode1
+    restart: always    
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+      - ./hdfs/datanode1:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode2:
+    image: bigdatainf/hadoop-datanode:3.3.5
+    container_name: datanode2
+    restart: always    
+    volumes:
+      - ./hdfs/datanode2:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode3:
+    image: bigdatainf/hadoop-datanode:3.3.5
+    container_name: datanode3
+    restart: always    
+    volumes:
+      - ./hdfs/datanode3:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -30,8 +55,10 @@ services:
     image: bigdatainf/hadoop-resourcemanager:3.3.5
     container_name: resourcemanager
     restart: always
+    ports:
+      - 8088:8088
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864"
     env_file:
       - ./hadoop.env
 
@@ -39,12 +66,9 @@ services:
     image: bigdatainf/hadoop-nodemanager:3.3.5
     container_name: nodemanager
     restart: always
+    ports:
+      - 8042:8042
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+      SERVICE_PRECONDITION: "resourcemanager:8088"
     env_file:
       - ./hadoop.env
-  
-  
-volumes:
-  hadoop_namenode:
-  hadoop_datanode:
