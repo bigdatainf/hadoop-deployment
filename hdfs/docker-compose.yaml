@@ -9,7 +9,7 @@ services:
       - 9870:9870
       - 9000:9000
     volumes:
-      - ./hdfs/namenode:/hadoop/dfs/name
+      - ./data/namenode:/hadoop/dfs/name
       - ./jobs:/app
     working_dir: /app
     environment:
@@ -23,7 +23,7 @@ services:
     container_name: datanode1
     restart: always    
     volumes:
-      - ./hdfs/datanode1:/hadoop/dfs/data
+      - ./data/datanode1:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -34,7 +34,7 @@ services:
     container_name: datanode2
     restart: always    
     volumes:
-      - ./hdfs/datanode2:/hadoop/dfs/data
+      - ./data/datanode2:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -45,30 +45,32 @@ services:
     container_name: datanode3
     restart: always    
     volumes:
-      - ./hdfs/datanode3:/hadoop/dfs/data
+      - ./data/datanode3:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode4:
+    image: bigdatainf/hadoop-datanode:3.3.5
+    container_name: datanode4
+    restart: always    
+    volumes:
+      - ./data/datanode4:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode5:
+    image: bigdatainf/hadoop-datanode:3.3.5
+    container_name: datanode5
+    restart: always    
+    volumes:
+      - ./data/datanode5:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ./hadoop.env
   
-  resourcemanager:
-    image: bigdatainf/hadoop-resourcemanager:3.3.5
-    container_name: resourcemanager
-    restart: always
-    ports:
-      - 8088:8088
-    environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864"
-    env_file:
-      - ./hadoop.env
-
-  nodemanager1:
-    image: bigdatainf/hadoop-nodemanager:3.3.5
-    container_name: nodemanager
-    restart: always
-    ports:
-      - 8042:8042
-    environment:
-      SERVICE_PRECONDITION: "resourcemanager:8088"
-    env_file:
-      - ./hadoop.env
+  
