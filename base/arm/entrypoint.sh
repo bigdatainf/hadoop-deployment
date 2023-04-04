@@ -56,7 +56,7 @@ if [ "$MULTIHOMED_NETWORK" = "1" ]; then
 
     # MAPRED
     addProperty /etc/hadoop/mapred-site.xml yarn.nodemanager.bind-host 0.0.0.0
-    addProperty /etc/hadoop/mapred-site.xml mapreduce.application.classpath $HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*,$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*,$HADOOP_MAPRED_HOME/share/hadoop/common/*,$HADOOP_MAPRED_HOME/share/hadoop/common/lib/*,$HADOOP_MAPRED_HOME/share/hadoop/yarn/*,$HADOOP_MAPRED_HOME/share/hadoop/yarn/lib/*,$HADOOP_MAPRED_HOME/share/hadoop/hdfs/*,$HADOOP_MAPRED_HOME/share/hadoop/hdfs/lib/*
+    addProperty /etc/hadoop/mapred-site.xml mapreduce.application.classpath /opt/hadoop-3.3.5/share/hadoop/mapreduce/*,/opt/hadoop-3.3.5/share/hadoop/mapreduce/lib/*,/opt/hadoop-3.3.5/share/hadoop/common/*,/opt/hadoop-3.3.5/share/hadoop/common/lib/*,/opt/hadoop-3.3.5/share/hadoop/yarn/*,/opt/hadoop-3.3.5/share/hadoop/yarn/lib/*,/opt/hadoop-3.3.5/share/hadoop/hdfs/*,/opt/hadoop-3.3.5/share/hadoop/hdfs/lib/*
 fi
 
 if [ -n "$GANGLIA_HOST" ]; then
