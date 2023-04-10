@@ -50,8 +50,8 @@ services:
       - ./hadoop.env
 
   historyserver:
-    image: imok2/hadoop-historyserver:hadoop3.2.2-java8
-    #image: bigdatainf/hadoop-historyserver:3.3.5
+    #image: cbadenes/hadoop-historyserver:3.3.5
+    image: bigdatainf/hadoop-historyserver:3.3.5
     container_name: historyserver
     restart: always
     environment:
