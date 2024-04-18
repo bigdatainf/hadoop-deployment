@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM ghcr.io/bigdatainf/debian:stable-slim
 
 MAINTAINER Carlos Badenes <carlos.badenes@upm.es>
 # based on the previous work of
