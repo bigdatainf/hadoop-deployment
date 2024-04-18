@@ -6,15 +6,15 @@ MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 MAINTAINER Giannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      openjdk-11-jdk \
+      openjdk-17-jdk \
       net-tools \
       curl \
-      netcat \
+      netcat-traditional \
       gnupg \
       libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64/
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64/
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
