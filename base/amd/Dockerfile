@@ -1,11 +1,8 @@
 FROM debian:stable-slim
 
-MAINTAINER Carlos Badenes <carlos.badenes@upm.es>
-# based on the previous work of
-MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
-MAINTAINER Giannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
-# Update and install OpenJDK 11
+LABEL maintainer="Carlos Badenes <carlos.badenes@upm.es>, based on the previous work of Ivan Ermilov <ivan.s.ermilov@gmail.com>, Giannis Mouchakis <gmouchakis@iit.demokritos.gr>"
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       openjdk-17-jdk \
       net-tools \
