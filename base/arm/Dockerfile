@@ -1,4 +1,4 @@
-FROM ghcr.io/bigdatainf/debian:arm-stable-slim
+FROM ghcr.io/bigdatainf/debian:arm-openjdk11
 
 MAINTAINER Carlos Badenes <carlos.badenes@upm.es>
 # based on the previous work of
@@ -6,7 +6,6 @@ MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 MAINTAINER Giannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      openjdk-17-jdk \
       net-tools \
       curl \
       netcat-traditional \
@@ -14,13 +13,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64/
-
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
 RUN gpg --import KEYS
 
-ENV HADOOP_VERSION 3.3.5
+ENV HADOOP_VERSION 3.3.6
 ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 
 RUN set -x \
