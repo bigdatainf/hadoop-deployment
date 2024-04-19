@@ -1,17 +1,14 @@
-FROM ghcr.io/bigdatainf/debian:amd-openjdk11
+FROM adoptopenjdk/openjdk11:debian
 
 LABEL maintainer="Carlos Badenes <carlos.badenes@upm.es>, based on the previous work of Ivan Ermilov <ivan.s.ermilov@gmail.com>, Giannis Mouchakis <gmouchakis@iit.demokritos.gr>"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      openjdk-17-jdk \
       net-tools \
       curl \
       netcat-traditional \
       gnupg \
       libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
-
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
