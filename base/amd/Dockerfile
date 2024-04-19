@@ -1,4 +1,4 @@
-FROM ghcr.io/bigdatainf/debian:amd-stable-slim
+FROM ghcr.io/bigdatainf/debian:amd-openjdk11
 
 LABEL maintainer="Carlos Badenes <carlos.badenes@upm.es>, based on the previous work of Ivan Ermilov <ivan.s.ermilov@gmail.com>, Giannis Mouchakis <gmouchakis@iit.demokritos.gr>"
 
