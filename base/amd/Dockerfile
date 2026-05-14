@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:debian
+FROM eclipse-temurin:11-jdk-jammy
 
 LABEL maintainer="Carlos Badenes <carlos.badenes@upm.es>, based on the previous work of Ivan Ermilov <ivan.s.ermilov@gmail.com>, Giannis Mouchakis <gmouchakis@iit.demokritos.gr>"
 
